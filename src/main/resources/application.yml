@@ -1,0 +1,13 @@
+# TODO:???????
+server:
+  port: 9999
+
+# TODO ???????
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///test?useSSL=false&useServerPrepStmts=true
+    username: root
+    password: "123456"
+    type: com.alibaba.druid.pool.DruidDataSource
