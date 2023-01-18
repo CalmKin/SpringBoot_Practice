@@ -6,13 +6,15 @@
 
 
 <!--检测结果mapper-->
-    <resultMap id="resultResultMap" type="result">
-        <result column="user_id" property="userId"></result>
-        <result column="time" property="checkTime"></result>
+    <resultMap id="userResultMap" type="com.calmkin.pojo.User">
         <result column="user_name" property="userName"></result>
     </resultMap>
+    <resultMap id="resultResultMap" type="com.calmkin.pojo.Result">
+        <result column="user_id" property="userId"></result>
+        <result column="time" property="checkTime"></result>
+    </resultMap>
     <!--    分页条件查询-->
-    <select id="selectByPageAndCondition" resultMap="resultResultMap">
+    <select id="selectByPageAndCondition" resultMap="resultResultMap" >
         select user.user_name,result.time,result.place,result.affected,result.user_id
         from result
         join user on result.user_id = user.id

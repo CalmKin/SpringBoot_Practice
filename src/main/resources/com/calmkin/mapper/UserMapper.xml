@@ -6,7 +6,7 @@
 <mapper namespace="com.calmkin.mapper.UserMapper">
 
     <!--用户信息Mapper-->
-    <resultMap id="userResultMap" type="user">
+    <resultMap id="userResultMap" type="com.calmkin.pojo.User">
         <result column="card_id" property="cardID"></result>
         <result column="user_name" property="userName"></result>
     </resultMap>

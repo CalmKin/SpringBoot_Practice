@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.calmkin.mapper.SubsMapper">
 
-    <resultMap id="SubsResultMap" type="subsc">
+    <resultMap id="SubsResultMap" type="com.calmkin.pojo.Subsc">
         <result property="subPlace" column="place_name"></result>
         <result property="subTime" column="book_time"></result>
         <result property="userName" column="user_name"></result>

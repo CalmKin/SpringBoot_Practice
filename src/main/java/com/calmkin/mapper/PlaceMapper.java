@@ -36,7 +36,6 @@ public interface PlaceMapper {
     /*用xml脚本写的sql*/
 
     //修改功能
-    @Update("{}")
     void updatePlace(Place place);
 
     //批量删除地点

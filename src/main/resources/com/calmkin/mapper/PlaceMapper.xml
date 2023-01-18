@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.calmkin.mapper.PlaceMapper">
 
-    <resultMap id="placeResultMap" type="place">
+    <resultMap id="placeResultMap" type="com.calmkin.pojo.Place">
         <result column="place_name" property="placeName"></result>
         <result column="subs_num" property="subsNum"></result>
     </resultMap>

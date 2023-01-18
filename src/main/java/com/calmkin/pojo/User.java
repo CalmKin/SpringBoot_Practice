@@ -7,28 +7,6 @@ public class User {
     private String userName;
     private String addr;
 
-    public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", cardID='" + cardID + '\'' +
-                ", tele='" + tele + '\'' +
-                ", userName='" + userName + '\'' +
-                ", addr='" + addr + '\'' +
-                '}';
-    }
-
-    public User(Integer id, String cardID, String tele, String userName, String addr) {
-        this.id = id;
-        this.cardID = cardID;
-        this.tele = tele;
-        this.userName = userName;
-        this.addr = addr;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -68,4 +46,27 @@ public class User {
     public void setAddr(String addr) {
         this.addr = addr;
     }
+
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", cardID='" + cardID + '\'' +
+                ", tele='" + tele + '\'' +
+                ", userName='" + userName + '\'' +
+                ", addr='" + addr + '\'' +
+                '}';
+    }
+
+    public User(Integer id, String cardID, String tele, String userName, String addr) {
+        this.id = id;
+        this.cardID = cardID;
+        this.tele = tele;
+        this.userName = userName;
+        this.addr = addr;
+    }
+
 }
