@@ -43,6 +43,13 @@
             <artifactId>druid</artifactId>
             <version>1.1.16</version>
         </dependency>
+<!--        TODO 添加mp的起步依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
         <!--TODO 添加lombok依赖-->
         <dependency>
             <groupId>org.projectlombok</groupId>
