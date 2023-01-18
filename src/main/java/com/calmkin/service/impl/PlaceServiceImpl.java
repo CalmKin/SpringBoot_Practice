@@ -14,7 +14,23 @@ public class PlaceServiceImpl implements PlaceService {
     @Autowired
     private PlaceMapper placeMapper;        /*这里会红线提示，*/
 
-//    分页查询功能
+    // 添加新的检测点
+    @Override
+    public void addPlace(Place place)
+    {
+        placeMapper.insert(place);
+    }
+
+    //    分页查询功能
+    @Override
+    public void deleteByIds(List<Integer> ids) {
+        placeMapper.deleteBatchIds(ids);
+    }
+    @Override
+    public void changeSingle(Place place) {
+        //会根据对象里面的id属性进行修改
+        placeMapper.updateById(place);
+    }
     @Override
     public PageBean<Place> selectByPage(int currPage, int pageSize) {
 
@@ -29,36 +45,8 @@ public class PlaceServiceImpl implements PlaceService {
         return pageBean;
 
     }
-//    添加新的检测点
-    public void addPlace(Place place)
-    {
-        placeMapper.addPlace(place);
 
-
-        /*此处需要提交事务*/
-//        sqlSession.commit();
-
-
-    }
 //修改单个地点的信息
-    @Override
-    public void changeSingle(Place place) {
-
-        placeMapper.updatePlace(place);
-
-        /*此处需要提交事务*/
-//        sqlSession.commit();
-
-    }
-
-    @Override
-    public void deleteByIds(int[] ids) {
-        placeMapper.deleteByIds(ids);
-
-        /*此处需要提交事务*/
-//        sqlSession.commit();
-
-    }
 
     @Override
     public List<String> accessiblePlace() {

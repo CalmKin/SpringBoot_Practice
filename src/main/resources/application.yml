@@ -11,3 +11,7 @@ spring:
     username: root
     password: "123456"
     type: com.alibaba.druid.pool.DruidDataSource
+#   TODO 配置开启mp的日志（一般不开启，主要用于排错的时候，而且还可以看到mp生成的sql）
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

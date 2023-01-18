@@ -45,7 +45,7 @@ public class placeServlet implements ApplicationContextAware {
 
 //    批量删除地点信息
     @RequestMapping("/deleteByIds")
-    public String deleteByIds(@RequestBody int [] lis) {
+    public String deleteByIds(@RequestBody List<Integer> lis) {
         service.deleteByIds(lis);
         return "success";
     }

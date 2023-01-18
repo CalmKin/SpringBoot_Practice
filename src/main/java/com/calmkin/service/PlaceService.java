@@ -13,7 +13,7 @@ public interface PlaceService {
 //    修改地点信息
      void changeSingle(Place place);
 //    批量删除地点
-     void deleteByIds(int[] ids);
+     void deleteByIds(List<Integer> lis);
 
 //    获取所有可以使用的核酸检测点
      List<String> accessiblePlace();
