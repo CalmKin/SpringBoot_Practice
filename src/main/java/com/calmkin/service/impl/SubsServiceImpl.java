@@ -71,7 +71,7 @@ public class SubsServiceImpl implements SubsService {
 
 
         //      更新检测点的预约情况,人数加一
-        placeMapper.updateNumOfSubs(subsc.getSubPlace());
+        place.updateNumOfSubs(subsc.getSubPlace());
 //        同时插入一条新的检测结果
         resultMapper.insertResult(result);
 

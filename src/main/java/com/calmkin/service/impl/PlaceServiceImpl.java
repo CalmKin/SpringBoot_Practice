@@ -63,4 +63,20 @@ public class PlaceServiceImpl implements PlaceService {
 
         return places;
     }
+
+    //修改当前地点的预约人数
+    @Override
+    public void updateNumOfSubs(String place)
+    {
+        LambdaQueryWrapper<Place> qw = new LambdaQueryWrapper<>();
+
+        qw.eq(Place::getPlaceName,place);
+
+        Place place1 = placeMapper.selectOne(qw);
+
+        place1.setSubsNum(  place1.getSubsNum() + 1   );
+
+        changeSingle(place1);
+    }
+
 }

@@ -19,4 +19,7 @@ public interface PlaceService {
 
 //    获取所有可以使用的核酸检测点
      List<Place> accessiblePlace();
+
+     void updateNumOfSubs(String place);
+
 }
