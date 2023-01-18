@@ -1,3 +1,4 @@
+
     <insert id="insertUser">
         insert into user(card_id,tele,user_name,addr)
         values (#{cardID},#{tele},#{userName},#{home})
