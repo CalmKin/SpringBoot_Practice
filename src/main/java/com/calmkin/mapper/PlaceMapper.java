@@ -10,7 +10,6 @@ public interface PlaceMapper {
     /*直接用注解写的sql*/
 
     //分页查询功能
-    @ResultMap("placeResultMap")
     @Select("select * from place limit #{begin},#{pageSize}")
     List<Place> selectAllPlaces(@Param("begin") int begin,@Param("pageSize") int pageSize);
 
