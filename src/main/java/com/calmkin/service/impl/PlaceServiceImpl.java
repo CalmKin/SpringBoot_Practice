@@ -1,5 +1,9 @@
 package com.calmkin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.calmkin.mapper.PlaceMapper;
 import com.calmkin.pojo.PageBean;
 import com.calmkin.pojo.Place;
@@ -28,29 +32,35 @@ public class PlaceServiceImpl implements PlaceService {
     }
     @Override
     public void changeSingle(Place place) {
-        //会根据对象里面的id属性进行修改
+        //会根据对象里面的id属性进行修改，会自动执行动态sql
         placeMapper.updateById(place);
     }
+
     @Override
-    public PageBean<Place> selectByPage(int currPage, int pageSize) {
+    public IPage<Place> selectByPage(int currPage, int pageSize) {
 
-        int begin = (currPage-1)*pageSize;
+        IPage<Place> page = new Page<>(currPage,pageSize);
 
-        List<Place>  lis = placeMapper.selectAllPlaces(begin,pageSize);
+        IPage<Place> placeIPage = placeMapper.selectPage(page, null);
 
-        int tot = placeMapper.totalCount();
+        System.out.println(placeIPage);
 
-        PageBean<Place> pageBean  = new PageBean<>(tot,lis);
-
-        return pageBean;
+        return placeIPage;
 
     }
 
-//修改单个地点的信息
-
+    //修改单个地点的信息
     @Override
-    public List<String> accessiblePlace() {
-        List<String> strings = placeMapper.accessiblePlace();
-        return strings;
+    public List<Place> accessiblePlace() {
+
+        LambdaQueryWrapper<Place> qw = new LambdaQueryWrapper<Place>();
+
+        qw.eq(Place::getStatus,1);     //根据place里面的status条件来查询，找等于1的
+
+        qw.select(Place::getPlaceName,Place::getStatus);
+
+        List<Place> places = placeMapper.selectList(qw);
+
+        return places;
     }
 }

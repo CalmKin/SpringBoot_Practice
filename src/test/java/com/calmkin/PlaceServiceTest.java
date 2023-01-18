@@ -20,7 +20,6 @@ public class PlaceServiceTest {
     }
     @Test
     public void TestselectByPage() {
-        PageBean<Place> pageBean = placeService.selectByPage(1, 5);
-        System.out.println(pageBean.getLis());
+        placeService.selectByPage(1,3);
     }
 }

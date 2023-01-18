@@ -1,5 +1,7 @@
 package com.calmkin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.calmkin.pojo.PageBean;
 import com.calmkin.pojo.Place;
 import com.calmkin.service.PlaceService;
@@ -22,8 +24,8 @@ public class placeServlet implements ApplicationContextAware {
     //分页查询所有核酸检测地点
 //    返回值为实体类对象，设置返回值为实体类类型，即可实现返回对应对象的json数据，需要依赖==@ResponseBody==注解和==@EnableWebMvc==注解
     @RequestMapping("/selectAllByPage")
-    public PageBean<Place> selectAllByPage(@RequestParam("currentPage") int currentPage, @RequestParam("pageSize") int pageSize)  {
-        PageBean<Place>  pageBean= service.selectByPage(currentPage,pageSize);
+    public IPage<Place> selectAllByPage(@RequestParam("currentPage") int currentPage, @RequestParam("pageSize") int pageSize)  {
+        IPage<Place> pageBean= service.selectByPage(currentPage,pageSize);
         return pageBean;
     }
 
@@ -50,8 +52,8 @@ public class placeServlet implements ApplicationContextAware {
         return "success";
     }
     @RequestMapping("/initPlaces")
-    public List<String> initPlaces()  {
-        List<String> lis = service.accessiblePlace();
+    public List<Place> initPlaces()  {
+        List<Place> lis = service.accessiblePlace();
         return lis;
     }
 
