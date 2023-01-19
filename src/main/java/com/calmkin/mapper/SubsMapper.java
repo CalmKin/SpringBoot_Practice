@@ -17,7 +17,5 @@ public interface SubsMapper extends BaseMapper<Subsc> {
     @Select("select count(*) from subscribe")
     int selectTotalCount();
 
-//    插入预约记录
-//    void addSubscription(@Param("subsc") Subsc subsc);
 
 }

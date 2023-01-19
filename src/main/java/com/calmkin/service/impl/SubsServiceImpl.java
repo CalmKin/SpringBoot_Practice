@@ -16,10 +16,8 @@ import java.util.List;
 import java.util.Random;
 @Service
 public class SubsServiceImpl implements SubsService {
-
     @Autowired
     private SubsMapper subsMapper;
-
     @Autowired
     private    UserMapper userMapper;
     @Autowired
@@ -89,6 +87,5 @@ public class SubsServiceImpl implements SubsService {
         //同时插入一条新的检测结果
         resultMapper.insert(result);
     }
-
 
 }

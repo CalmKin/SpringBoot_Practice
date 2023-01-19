@@ -1,5 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.calmkin.mapper.ResultMapper">
+
+
+    <!--检测结果mapper-->
+    <resultMap id="resultResultMap" type="com.calmkin.pojo.Result">
+        <result column="user_id" property="userId"></result>
+        <result column="time" property="checkTime"></result>
+        <result column="user_name" property="userName"></result>
+    </resultMap>
     <!--    分页条件查询-->
-    <select id="selectByPageAndCondition" resultMap="resultResultMap" >
+    <select id="selectByPageAndCondition" resultMap="resultResultMap">
         select user.user_name,result.time,result.place,result.affected,result.user_id
         from result
         join user on result.user_id = user.id
@@ -14,7 +27,7 @@
         limit #{begin},#{pageSize}
     </select>
 
-<!--    获取满足条件的条目数量-->
+    <!--    获取满足条件的条目数量-->
     <select id="totalCountByCondition" resultType="java.lang.Integer">
         select count(*)
         from result
@@ -29,7 +42,7 @@
         </where>
     </select>
     <select id="selectByCondition" resultMap="resultResultMap">
--- 先将用户表和结果表通过用户id进行连接，然后根据身份证号查询结果
+        -- 先将用户表和结果表通过用户id进行连接，然后根据身份证号查询结果
         select time,place,affected
         from result
         left join user
