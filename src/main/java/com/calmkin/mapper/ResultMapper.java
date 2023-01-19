@@ -1,5 +1,6 @@
 package com.calmkin.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.calmkin.pojo.Condition;
 import com.calmkin.pojo.Result;
 import org.apache.ibatis.annotations.Insert;
@@ -8,7 +9,7 @@ import org.apache.ibatis.annotations.ResultMap;
 
 import java.util.List;
 
-public interface ResultMapper {
+public interface ResultMapper extends BaseMapper<Result> {
     /*
     * 分页条件查询（根据用户的姓名和）
     * */
@@ -24,7 +25,8 @@ public interface ResultMapper {
     @ResultMap("resultResultMap")
     List<Result> selectByCondition(@Param("cardID") String cardID,@Param("name") String name);
 
-    @Insert(" insert into result(id,user_id,time,place,affected) values (null,#{result.userId},#{result.checkTime},#{result.place},#{result.affected})")
-    void insertResult(@Param("result") Result result);
+//    @Insert(" insert into result(id,user_id,time,place,affected) " +
+//            "values (null,#{result.userId},#{result.checkTime},#{result.place},#{result.affected})")
+//    void insertResult(@Param("result") Result result);
 
 }

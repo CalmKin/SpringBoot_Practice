@@ -12,4 +12,13 @@ public class User {
     @TableField(value = "user_name")
     private String userName;
     private String addr;
+
+    public User(String cardID,String tele,String userName,String addr)
+    {
+        this.setCardID(cardID);
+        this.setTele(tele);
+        this.setUserName(userName);
+        this.setAddr(addr);
+    }
+
 }

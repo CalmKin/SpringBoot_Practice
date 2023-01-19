@@ -1,5 +1,6 @@
 package com.calmkin.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.calmkin.pojo.Subsc;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
@@ -7,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-public interface SubsMapper {
+public interface SubsMapper extends BaseMapper<Subsc> {
 //    条件分页查询
     @ResultMap("SubsResultMap")
     @Select("select * from subscribe limit #{begin},#{pageSize}")
@@ -17,6 +18,6 @@ public interface SubsMapper {
     int selectTotalCount();
 
 //    插入预约记录
-    void addSubscription(@Param("subsc") Subsc subsc);
+//    void addSubscription(@Param("subsc") Subsc subsc);
 
 }

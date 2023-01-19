@@ -1,12 +1,13 @@
 package com.calmkin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.calmkin.mapper.PlaceMapper;
 import com.calmkin.mapper.ResultMapper;
 import com.calmkin.mapper.SubsMapper;
 import com.calmkin.mapper.UserMapper;
-import com.calmkin.pojo.PageBean;
-import com.calmkin.pojo.Result;
-import com.calmkin.pojo.Subsc;
+import com.calmkin.pojo.*;
 import com.calmkin.service.SubsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,17 +28,13 @@ public class SubsServiceImpl implements SubsService {
     private    ResultMapper resultMapper;
     //    分页查询服务
     @Override
-    public PageBean<Subsc> selectByPage(int currentPage, int pageSize) {
+    public IPage<Subsc> selectByPage(int currentPage, int pageSize) {
 
-        int offset = (currentPage-1)*pageSize;
+        IPage<Subsc> page = new Page<>(currentPage,pageSize);
 
-        List<Subsc> lis = subsMapper.selectAllSubs(offset,pageSize);
+        IPage<Subsc> page1 = subsMapper.selectPage(page, null);
 
-        int tot = subsMapper.selectTotalCount();
-
-        PageBean<Subsc> pageBean = new PageBean<>(tot,lis);
-
-        return pageBean;
+        return page1;
     }
 //    添加预约记录服务,同时根据预约记录添加检测结果记录
     @Override
@@ -45,18 +42,29 @@ public class SubsServiceImpl implements SubsService {
 
         String userCardId = subsc.getCardID();
 
-        Integer userId = userMapper.getUserId(userCardId);
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+
+        lqw.eq(User::getCardID,userCardId);
+        lqw.select(User::getId);
+
+        User user = userMapper.selectOne(lqw);
+        Integer userId = user.getId();
 //        先判断是否存在用户
 //        如果不存在，那就抽取用户bean，进行插入用户操作
-        if( userId == null )
+        if( user.getId() == null )
         {
-            userMapper.insertUser(subsc);
-            userId =  userMapper.getUserId(userCardId);
+            User tmp_user = new User(subsc.getCardID(),subsc.getTele(),subsc.getUserName(),subsc.getHome());
+            userMapper.insert(tmp_user);
+
+            LambdaQueryWrapper<User> lqw2 = new LambdaQueryWrapper<>();
+            lqw2.select(User::getId);
+            lqw2.eq(User::getCardID,tmp_user.getCardID());
+            User user1 = userMapper.selectOne(lqw2);
+            userId = user1.getId();
         }
+
 //      插入预约记录
-        subsMapper.addSubscription(subsc);
-
-
+        subsMapper.insert(subsc);
 
         /*生成随机结果*/
         String[] randomResult = {"阴性","阴性","阴性","阳性","阳性","阴性","阴性","阴性","阴性","阳性"};
@@ -69,16 +77,17 @@ public class SubsServiceImpl implements SubsService {
         result.setUserId(userId);
         result.setAffected(randomResult[pick]);
 
-
         //      更新检测点的预约情况,人数加一
-        place.updateNumOfSubs(subsc.getSubPlace());
-//        同时插入一条新的检测结果
-        resultMapper.insertResult(result);
-
-
-        /*此处需要提交事务*/
-//        sqlSession.commit();
-
+        LambdaQueryWrapper<Place> lqw2 = new LambdaQueryWrapper<>();
+        lqw2.eq(Place::getPlaceName,subsc.getSubPlace());
+        //先获取当前预约地点的对象，方便后面做修改操作
+        Place place = placeMapper.selectOne(lqw2);
+        //更新地点预约人数信息
+        place.setSubsNum(place.getSubsNum()+1);
+        //找到地名等于指定地名的记录进行修改操作
+        placeMapper.update(place,lqw2);
+        //同时插入一条新的检测结果
+        resultMapper.insert(result);
     }
 
 
