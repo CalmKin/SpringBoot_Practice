@@ -21,7 +21,6 @@ public class resultServlet {
     //条件分页查询
     @GetMapping( "/selectByPageAndCondition"  )
     public PageBean<Result> selectByPageAndCondition(@RequestParam("currentPage") int currentPage, @RequestParam("pageSize") int pageSize, @RequestBody Condition condition)  {
-        System.out.println("...");
         //因为是get方法传递的参数，是  begin=xxx ? pageSize=xxx 的形式，所以可以用getParameter方法获取
         //url里面的参数依然是用RequestParam来标记的，请求体里面的json数据是用RequestParam来标记的
         int begin = (currentPage-1)*pageSize;

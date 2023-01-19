@@ -1,5 +1,6 @@
 package com.calmkin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.calmkin.pojo.PageBean;
 import com.calmkin.pojo.Subsc;
 import com.calmkin.service.SubsService;
@@ -15,8 +16,8 @@ public class SubscServlet {
     @Autowired
     private SubsService service;
     @RequestMapping("/selectByPage")
-    public PageBean<Subsc> selectByPage(@RequestParam("currentPage") int currentPage, @RequestParam("pageSize") int  pageSize)  {
-        PageBean<Subsc> pageBean = service.selectByPage(currentPage, pageSize);
+    public  IPage<Subsc> selectByPage(@RequestParam("currentPage") int currentPage, @RequestParam("pageSize") int  pageSize)  {
+        IPage<Subsc> pageBean = service.selectByPage(currentPage, pageSize);
         return pageBean;
     }
     @RequestMapping("/addSubs")

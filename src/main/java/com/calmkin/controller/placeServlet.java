@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @RestController     /*RestController整合了responsebody和Controller*/
 @RequestMapping("/place")
-public class placeServlet implements ApplicationContextAware {
+public class placeServlet {
     private ApplicationContext applicationContext;
     @Autowired
     private PlaceService service;
@@ -55,11 +55,5 @@ public class placeServlet implements ApplicationContextAware {
     public List<Place> initPlaces()  {
         List<Place> lis = service.accessiblePlace();
         return lis;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-        System.out.println(applicationContext.getBean(SubscServlet.class));
     }
 }
